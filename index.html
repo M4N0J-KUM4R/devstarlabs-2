@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 <style>
 /* ============ tokens (palette from loopsii-style fields) ============ */
@@ -55,7 +55,7 @@ ul,ol{list-style:none}
 .skip:focus{left:0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* ============ type ============ */
-h1,h2,h3{font-family:var(--disp);font-weight:600;letter-spacing:-.03em;line-height:1}
+h1,h2,h3{font-family:var(--text);font-weight:600;letter-spacing:-.035em;line-height:1.02}
 .statement{font-size:clamp(2rem,6vw,5.75rem);line-height:1.02}
 .poster{font-size:clamp(3.5rem,13vw,12rem);line-height:.95;word-break:keep-all;hyphens:none}
 .mono{font-family:var(--mono);font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
@@ -91,25 +91,33 @@ span[data-split]{display:block}
 .sec-head .mono{color:var(--deep);padding-top:.4em}
 [data-surface="field"] .sec-head .mono,[data-surface="signal"] .sec-head .mono{color:var(--ink)}
 .rule{border:0;border-top:1px solid var(--hair)}
-/* ============ header (floating capsule) ============ */
-.hdr{position:sticky;top:clamp(.6rem,1.4vw,1.1rem);z-index:80;display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;width:calc(100% - 2*var(--pad));max-width:calc(88rem - 2*var(--pad));margin:clamp(.6rem,1.4vw,1.1rem) auto;
-  padding:.5rem .75rem .5rem 1.35rem;background:color-mix(in srgb,var(--paper) 80%,transparent);
-  backdrop-filter:blur(10px);border:1px solid var(--hair);border-radius:999px;
-  box-shadow:0 8px 28px rgba(28,28,26,.07)}
-[data-field="paper"] .hdr{border-color:rgba(28,28,26,.14)}
-.wordmark{font-family:var(--disp);font-weight:600;letter-spacing:-.02em;font-size:1.25rem;text-decoration:none}
-.wordmark b{color:var(--deep);font-weight:600}
-.hdr nav{display:none;gap:1.6rem}
-@media(min-width:900px){.hdr nav{display:flex}}
-.hdr nav a{text-decoration:none;font-size:.95rem;padding:.25rem 0}
+/* ============ header (fixed capsule, compacts on scroll) ============ */
+.hdr{position:fixed;top:clamp(.7rem,1.4vw,1.15rem);left:0;right:0;z-index:90;display:flex;align-items:center;
+  justify-content:space-between;gap:1rem;width:calc(100% - 2*var(--pad));max-width:1352px;
+  margin:0 auto;padding:.4rem .5rem .4rem 1.35rem;
+  background:color-mix(in srgb,var(--paper2) 62%,transparent);backdrop-filter:blur(12px);
+  border:1px solid rgba(28,28,26,.38);border-radius:999px;
+  transition:max-width .55s var(--eo),background-color .35s var(--eo);box-shadow:0 8px 30px rgba(28,28,26,.08)}
+.hdr.scrolled{max-width:768px;background:color-mix(in srgb,var(--paper2) 85%,transparent)}
+.wordmark{font-family:var(--disp);font-weight:600;letter-spacing:-.02em;font-size:1.3rem;text-decoration:none;color:var(--ink)}
+.wordmark b{color:var(--ink);font-weight:600}
+.hdr nav{display:none;gap:2.75rem}
+@media(min-width:980px){.hdr nav{display:flex}}
+.hdr nav a{text-decoration:none;font-size:.95rem;font-weight:500;padding:.25rem 0}
 .roll{display:inline-block;overflow:hidden;vertical-align:bottom}
 .roll .ri{display:block;position:relative;transition:transform .38s var(--eio)}
 .roll .ri::after{content:attr(data-txt);position:absolute;left:0;top:100%;white-space:nowrap}
 a:hover .roll .ri,a:focus-visible .roll .ri,button:hover .roll .ri{transform:translateY(-101%)}
-.hdr-cta{display:flex;align-items:center;gap:.75rem}
+.hdr-cta{display:flex;align-items:center;gap:.45rem}
+.hdr-go{width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--paper2);display:inline-flex;
+  align-items:center;justify-content:center;text-decoration:none;flex-shrink:0;transition:transform .35s var(--eo),background .3s}
+.hdr-go .arr-g{font-size:1.05rem;line-height:1}
+.hdr-go:hover,.hdr-go:focus-visible{transform:rotate(45deg);background:var(--deep)}
+.hdr-pilot{background:var(--ink);color:var(--paper2);border-radius:999px;padding:.72rem 1.15rem;font-size:.88rem;
+  font-weight:500;text-decoration:none;white-space:nowrap;transition:background .3s var(--eio)}
+.hdr-pilot:hover,.hdr-pilot:focus-visible{background:var(--deep);color:var(--paper2)}
 .menu-btn{font-family:var(--mono);font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .25rem;min-height:44px}
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .35rem;min-height:44px}
 .menu-btn .ic{width:18px;height:12px;position:relative}
 .menu-btn .ic::before,.menu-btn .ic::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .3s var(--eio),top .3s var(--eio)}
 .menu-btn .ic::before{top:0}.menu-btn .ic::after{top:10px}
@@ -441,6 +449,9 @@ html.js .split.in .ln>span{transform:none}
   .roll .ri{transform:none!important;transition:none}
   .blink{animation:none}
   .row .glyph,.pcard{transition:none}
+  .cw-chips span{animation:none}
+  .lcard{transition:none}
+  .hdr{transition:none}
 }
 /* ============ page bits ============ */
 .eyebrow{color:var(--deep);margin-bottom:1.25rem;display:block}
@@ -530,17 +541,176 @@ html.no-js .stack li{opacity:1}
 .nojs-nav{display:none;padding:1rem var(--pad);border-bottom:1px solid var(--hair);flex-wrap:wrap;gap:.5rem 1.5rem}
 html.no-js .nojs-nav{display:flex}
 .legend{font-size:.85rem;color:var(--muted)}
+/* ============ home: two-column hero ============ */
+.hero2{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+.hero2-grid{display:grid;gap:2.5rem;grid-template-columns:1fr;align-items:end;padding-top:clamp(6rem,14vh,9rem)}
+@media(min-width:900px){.hero2-grid{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}}
+.hero2-title{font-size:clamp(3rem,8.8vw,8rem);line-height:.99;letter-spacing:-.04em;font-weight:600;max-width:12ch}
+.hero2-side{max-width:32rem;justify-self:start;font-size:clamp(1.05rem,1.35vw,1.3rem);line-height:1.5;font-weight:500}
+@media(min-width:900px){.hero2-side{justify-self:end}}
+.hero2-foot{display:flex;flex-wrap:wrap;gap:1.25rem 2rem;justify-content:space-between;align-items:center;
+  margin-top:clamp(2rem,6vh,4rem);padding-bottom:1.25rem}
+/* hairline guides with square end ticks */
+.gline{position:relative;height:1px;background:var(--hair)}
+.gline i{position:absolute;top:-4.5px;width:9px;height:9px;background:var(--ink)}
+.gline i.l{left:0}.gline i.r{right:0}
+/* ============ home: mosaic frame with corner labels ============ */
+.mos-frame{position:relative;margin-top:0}
+.mos-frame .mlab{position:absolute;z-index:2;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);background:var(--paper);padding:.05rem .45rem}
+.mlab.tl{top:-9px;left:0}.mlab.tr{top:-9px;right:0}.mlab.bl{bottom:-9px;left:0}.mlab.br{bottom:-9px;right:0}
+.mos-frame .mosaic{margin-top:0;border:0}
+/* ============ home: dark thought-wall ============ */
+.cw{background:var(--ink);color:var(--paper2);padding-block:clamp(4rem,10vw,8rem)}
+.cw-grid{display:grid;gap:3rem;grid-template-columns:1fr;align-items:center}
+.cw h2{font-size:clamp(1.9rem,3.6vw,3.1rem);line-height:1.08;letter-spacing:-.03em;font-weight:600}
+.cw .cw-r{justify-self:end;text-align:right;max-width:17ch;align-self:end;color:rgba(240,240,240,.9)}
+.cw-chips{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;max-width:42rem;margin:0 auto;
+  align-content:center;padding-block:clamp(2rem,6vh,4rem)}
+.cw-chips span{background:var(--paper2);color:var(--ink);border-radius:999px;padding:.72rem 1.2rem;
+  font-size:clamp(.95rem,1.2vw,1.15rem);font-weight:500;white-space:nowrap;
+  animation:chipin .7s var(--eo) both;animation-delay:calc(var(--i)*85ms)}
+.cw-chips .par{background:none;color:var(--paper2);font-weight:300;padding:.2rem 0;font-size:clamp(1.6rem,2.4vw,2.2rem);animation:none}
+@keyframes chipin{from{opacity:0;transform:translateY(14px) scale(.88)}to{opacity:1;transform:none}}
+html.no-js .cw-chips span{animation:none}
+@media(min-width:900px){
+  .cw-grid{grid-template-columns:1fr minmax(0,42rem) 1fr}
+  .cw-chips{grid-column:2}
+  .cw .cw-l{grid-column:1;grid-row:1}
+  .cw .cw-r{grid-column:3;grid-row:1}
+}
+/* ============ home: cost ledger on hairline grid ============ */
+.ledger{padding-block:clamp(4rem,10vw,8rem);
+  background-image:linear-gradient(var(--hair) 1px,transparent 1px),linear-gradient(90deg,var(--hair) 1px,transparent 1px);
+  background-size:88px 88px;background-position:center}
+.ledger-head{text-align:center;max-width:44rem;margin:0 auto clamp(2.5rem,6vw,4rem)}
+.ledger-head .hand{display:block;margin-bottom:1.1rem}
+.ledger-head h2{font-size:clamp(2.4rem,5.6vw,4.5rem);letter-spacing:-.04em}
+.ledger-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px}
+.lcard{grid-column:span 3;background:var(--paper2);border-radius:14px;padding:1.15rem;display:flex;flex-direction:column;
+  gap:.35rem;min-height:170px;box-shadow:0 1px 2px rgba(28,28,26,.05);transition:transform .35s var(--eo)}
+.lcard:hover{transform:translate(-2px,-2px)}
+@media(min-width:900px){.lcard{grid-column:span 2}}
+.lcard .ic{width:32px;height:32px;border-radius:10px;margin-bottom:.6rem}
+.lcard .ic.ic-lime{background:var(--lime)}.lcard .ic.ic-sky{background:var(--sky)}
+.lcard .ic.ic-coral{background:var(--coral)}.lcard .ic.ic-sage{background:var(--sage)}
+.lcard .ic.ic-apricot{background:var(--apricot)}.lcard .ic.ic-steel{background:var(--steel)}
+.lcard h3{font-size:1.12rem;letter-spacing:-.01em;font-weight:600}
+.lcard .sub{font-size:.85rem;color:var(--muted)}
+.lcard .st{margin-top:auto;font-weight:600;font-size:1.05rem;letter-spacing:-.01em}
+.lstat{grid-column:span 3;display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem .4rem}
+@media(min-width:900px){.lstat{grid-column:span 2}}
+.lstat .n{font-size:clamp(2.6rem,4.6vw,4.2rem);font-weight:600;letter-spacing:-.035em;line-height:1}
+.lstat .n small{font-size:.42em;vertical-align:super}
+.lstat .c{font-size:clamp(1.3rem,2vw,1.8rem);font-weight:600;letter-spacing:-.02em}
+.lann{grid-column:span 3;display:flex;align-items:flex-end;padding:.6rem .4rem;font-size:clamp(1.5rem,2.4vw,2rem)}
+@media(min-width:900px){.lann{grid-column:span 2}}
+.ledger .fineprint{margin-top:1.5rem}
+/* ============ home: managed-features grid ============ */
+.featgrid{padding-block:clamp(4.5rem,10vw,8rem)}
+.featgrid .hand{font-size:clamp(1.5rem,2.4vw,2rem);display:block;margin-bottom:1rem}
+.featgrid h2.giant{font-size:clamp(2.5rem,6vw,5.25rem);letter-spacing:-.04em;line-height:1.02;max-width:22ch}
+.featwrap{display:grid;grid-template-columns:1fr;gap:2.5rem;margin-top:clamp(2.5rem,6vw,4rem)}
+@media(min-width:960px){.featwrap{grid-template-columns:minmax(0,1fr) minmax(0,2.6fr)}}
+.featrail{display:flex;flex-direction:column;gap:1.1rem;align-items:flex-start}
+@media(min-width:960px){.featrail{position:sticky;top:110px}}
+.ptag{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:.38rem .85rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.featrail h3{font-size:clamp(1.6rem,2.6vw,2.2rem);letter-spacing:-.025em;max-width:16ch}
+.featcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.fcard{border-radius:15px;padding:15px;min-height:294px;display:flex;flex-direction:column;color:var(--ink)}
+.fcard h3{font-size:clamp(1.4rem,2vw,1.75rem);letter-spacing:-.02em;margin-bottom:.5rem}
+.fcard p{font-size:.95rem;line-height:1.45;font-weight:500;max-width:32ch;color:rgba(28,28,26,.85)}
+.fcard .gmark{margin-top:auto;padding-top:1.5rem}
+.fc-sky{background:var(--sky)}.fc-steel{background:var(--steel)}.fc-coral{background:var(--coral)}
+.fc-lime{background:var(--lime)}.fc-lime2{background:var(--lime2)}.fc-sage{background:var(--sage)}
+.fc-apricot{background:var(--apricot)}
+.fcard .upnext{font-family:"Caveat",cursive;font-weight:600;font-size:1.25rem;margin-bottom:.6rem}
+/* ============ home: one-plan pricing ============ */
+.oneplan{padding-block:clamp(4.5rem,10vw,8.5rem);position:relative;
+  background-image:linear-gradient(rgba(205,60,86,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(205,60,86,.06) 1px,transparent 1px);
+  background-size:56px 56px;background-position:center}
+.oneplan-head{text-align:center;max-width:44rem;margin:0 auto}
+.oneplan-head h2{font-size:clamp(2.6rem,6vw,5.25rem);letter-spacing:-.04em}
+.oneplan-head .hand{display:block;margin-top:1rem;color:var(--muted);font-size:clamp(1.4rem,2vw,1.75rem)}
+.plan{max-width:64rem;margin:clamp(2.5rem,6vw,4rem) auto 0;display:grid;gap:6px;grid-template-columns:1fr}
+@media(min-width:860px){.plan{grid-template-columns:1.05fr 1.4fr}}
+.plan-a{background:var(--lime);border-radius:22px;padding:1.6rem;display:flex;flex-direction:column;min-height:380px}
+.plan-a .pname{font-size:1.3rem;font-weight:600;letter-spacing:-.01em}
+.plan-a .price{margin-top:auto;font-size:clamp(3.8rem,7.5vw,6.8rem);font-weight:600;letter-spacing:-.045em;line-height:.9}
+.plan-a .per{font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:600;letter-spacing:-.01em}
+.plan-b{background:var(--paper2);border-radius:22px;padding:1.6rem}
+.plan-b h3{font-size:1.45rem;margin-bottom:.75rem}
+.inc li{display:flex;gap:.85rem;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--hair);
+  font-size:clamp(1rem,1.3vw,1.15rem);font-weight:500;line-height:1.4}
+.inc li:last-child{border-bottom:0}
+.inc li::before{content:"";width:.5em;height:.5em;background:var(--ink);flex-shrink:0;transform:translateY(-.15em)}
+.inc .sm{font-size:.82em;color:var(--muted);font-weight:500}
+.plan-cta{max-width:64rem;margin:8px auto 0}
+.plan-cta a{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--ink);color:var(--paper2);
+  border-radius:999px;padding:1.1rem 1.6rem;font-weight:600;font-size:1.05rem;text-decoration:none;transition:background .3s var(--eio)}
+.plan-cta a:hover,.plan-cta a:focus-visible{background:var(--deep);color:var(--paper2)}
+.plan-cta .pc-arr{font-size:1.1rem}
+/* ============ home: faq ============ */
+.faqx{padding-block:clamp(4.5rem,10vw,8rem)}
+.faqx-grid{display:grid;gap:3rem;grid-template-columns:1fr}
+@media(min-width:960px){.faqx-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}}
+.faqx .hand{font-size:clamp(1.4rem,2.2vw,1.9rem);display:block;margin-bottom:.9rem}
+.faqx h2.giant{font-size:clamp(2.5rem,5.8vw,5rem);letter-spacing:-.04em}
+@media(min-width:960px){.faqx .faqx-left{position:sticky;top:110px;align-self:start}}
+.acc{border-top:1px solid var(--hair)}
+.acc details{border-bottom:1px solid var(--hair)}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;
+  padding:1.5rem 0;font-weight:600;font-size:clamp(1.25rem,2vw,1.65rem);letter-spacing:-.02em;min-height:44px}
+.acc summary::-webkit-details-marker{display:none}
+.acc .ax{width:22px;height:22px;position:relative;flex-shrink:0}
+.acc .ax::before,.acc .ax::after{content:"";position:absolute;background:var(--ink);inset:0;margin:auto;
+  transition:transform .3s var(--eio)}
+.acc .ax::before{width:100%;height:2px}
+.acc .ax::after{width:2px;height:100%}
+details[open] .ax::after{transform:rotate(90deg)}
+.acc .faq-a{overflow:hidden}
+.acc .faq-a>div{padding:0 3rem 1.6rem 0;color:rgba(28,28,26,.85);max-width:58ch}
+/* ============ home: outro confetti ============ */
+.outro{position:relative;min-height:88svh;overflow:hidden;display:flex;align-items:center}
+.outro canvas{position:absolute;inset:0;width:100%;height:100%}
+.outro-words{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;gap:clamp(1.5rem,4vh,3rem);padding-block:4rem}
+.owrow{display:flex;flex-wrap:wrap;gap:1.5rem 3.5rem}
+.owrow span{font-size:clamp(2.9rem,7.2vw,6.8rem);font-weight:600;letter-spacing:-.04em;line-height:1;white-space:nowrap}
+.owrow.r1{justify-content:flex-end;padding-right:4vw}
+.owrow.r2{justify-content:center}
+.owrow.r3{justify-content:flex-start;padding-left:1vw}
+/* ============ footer legal card ============ */
+.ftr{background:var(--paper);color:var(--ink);padding:0 var(--pad) 2rem;position:relative}
+.ftr::before{display:none}
+.ftr .legal{background:var(--paper2);border-radius:15px;border:1px solid var(--hair);padding:1.35rem 1.5rem;
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center}
+.ftr .legal-l{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:center;font-weight:500;font-size:.95rem}
+.ftr .legal-l .mono{font-size:.68rem}
+.ftr .legal-r{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem}
+.ftr .legal-r a{text-decoration:none;color:var(--muted);font-size:.88rem}
+.ftr .legal-r a:hover,.ftr .legal-r a:focus-visible{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.ftr .legend{margin-top:1rem;display:block;font-size:.78rem}
 /* ============ late mobile tuning (wins over base rules above) ============ */
 @media(max-width:640px){
-  .hdr{gap:.55rem;padding:.45rem .55rem .45rem .95rem}
+  .hdr{gap:.5rem;padding:.4rem .45rem .4rem .95rem}
   .wordmark{font-size:1.05rem}
-  .hdr .btn{padding:.7rem .8rem;font-size:.72rem;letter-spacing:.06em}
-  .menu-btn{padding:.5rem .15rem}
+  .hdr-pilot{padding:.6rem .85rem;font-size:.8rem}
+  .hdr-go{width:38px;height:38px}
+  .menu-btn{padding:.5rem .2rem}
   .hero{min-height:auto;padding-block:2.5rem 3.25rem}
   .hero-eyebrow{margin-bottom:1rem}
   .hero .lede{margin-top:1.1rem;font-size:1.0625rem}
   .hero-ctas{margin-top:1.4rem}
   .hero-note{margin-top:1.25rem}
+  .hero2-grid{padding-top:6.5rem;gap:1.75rem}
+  .cw .cw-r{text-align:left;justify-self:start}
+  .acc .faq-a>div{padding-right:1rem}
+}
+@media(max-width:699px){
+  .ledger-grid{grid-template-columns:1fr}
+  .lcard,.lstat,.lann{grid-column:1/-1}
+  .lstat,.lann{padding-block:1.4rem}
 }
 </style>
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"DevStarLabs","url":"https://devstarlabs.in/","areaServed":"Tamil Nadu, India","description":"Managed cloud, DevOps, security and AI-automation services on monthly retainers. DPIIT-recognised startup, Udyam/MSME registered, GeM seller, AWS Select partner.","address":{"@type":"PostalAddress","addressRegion":"Tamil Nadu","addressCountry":"IN"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"We already have developers - why DevStarLabs?","acceptedAnswer":{"@type":"Answer","text":"We complement engineers: costs, pipelines, monitoring and backups instead of replacing them."}},{"@type":"Question","name":"What does managed mean?","acceptedAnswer":{"@type":"Answer","text":"A named engineer, a monthly cadence and a written scope - not a ticket queue."}},{"@type":"Question","name":"How is pricing decided?","acceptedAnswer":{"@type":"Answer","text":"A paid pilot of INR 10,000-25,000 first; retainers quoted per defined scope."}}]}]</script>
@@ -548,12 +718,13 @@ html.no-js .nojs-nav{display:flex}
 <body data-active-surface="paper" data-field="lemon">
 <a class="skip" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"><span class="bar"></span></div>
-<header class="hdr">
+<header class="hdr" id="hdr">
   <a class="wordmark" href="index.html">DevStar<b>Labs</b></a>
-  <nav aria-label="Primary"><a href="cloud-devops.html">Cloud & DevOps</a><a href="security.html">Security</a><a href="ai-automation.html">AI Automation</a><a href="about.html">About</a></nav>
+  <nav aria-label="Primary"><a href="#channels">Services</a><a href="#why">Why us</a><a href="pilot.html">Pricing</a></nav>
   <div class="hdr-cta">
-    <a class="btn hdr-pilot" href="pilot.html"><span class="lbl-long">Book a paid pilot review</span><span class="lbl-short">Book a pilot</span></a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span>Menu</span><span class="ic" aria-hidden="true"></span></button>
+    <a class="hdr-go" href="contact.html" aria-label="Contact us"><span class="arr-g" aria-hidden="true">&#8599;</span></a>
+    <a class="hdr-pilot" href="pilot.html"><span class="lbl-long">Book a paid pilot</span><span class="lbl-short">Pilot</span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span class="sr">Menu</span><span class="ic" aria-hidden="true"></span></button>
   </div>
 </header>
 <noscript><nav class="nojs-nav" aria-label="All pages"><a href="index.html">Home</a><a href="cloud-devops.html">Managed Cloud & DevOps</a><a href="security.html">Managed Security</a><a href="ai-automation.html">AI Automation</a><a href="outsourced-it.html">Outsourced Technology Department</a><a href="government-enterprise.html">Government & Enterprise</a><a href="case-studies.html">Case Studies</a><a href="pilot.html">Pilot offer</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav></noscript>
@@ -563,90 +734,114 @@ html.no-js .nojs-nav{display:flex}
 <div class="cursor" aria-hidden="true"><span class="cl"></span></div>
 <main id="main">
 
-<section class="sec hero" data-surface="paper">
+<section class="hero2" data-surface="paper" id="top">
   <div class="wrap">
-    <span class="mono hero-eyebrow bdot">DevStarLabs &mdash; Tamil Nadu, India</span>
-    <h1 class="statement stair"><span data-split data-d0="120">Your outsourced cloud, DevOps and</span> <span class="hl" data-split data-d0="200">AI&#8209;automation department</span> <span class="muted" data-split data-d0="340">&mdash; for companies that can&#8217;t yet justify hiring one.</span></h1>
-    <p class="lede" data-reveal>We run your infrastructure, security and lead follow-up as a monthly
-    service. We sell the outcome &mdash; lower bills, reliable releases, enquiries answered &mdash; not the hours.</p>
-    <div class="hero-ctas" data-reveal>
-      <a class="btn" href="pilot.html"><span>Book a paid pilot review</span></a>
-      <a class="btn btn-ghost" href="#channels"><span>See what we manage</span></a>
+    <div class="hero2-grid">
+      <h1 class="hero2-title" data-split data-d0="120">Your cloud, DevOps and AI&#8209;automation department.</h1>
+      <p class="hero2-side" data-reveal>We run your infrastructure, security and lead follow-up as one monthly
+      service &mdash; and we sell the outcome: lower bills, reliable releases, enquiries answered. Not the hours.</p>
     </div>
-    <p class="mono hero-note bdot" data-reveal>DPIIT-recognised startup &middot; GeM seller &middot; AWS Select partner</p>
-    <div class="mosaic" aria-hidden="true"><i class="c-lime2"></i><i class="ar c-coral"></i><i class="c-sage"></i><i class="ci c-sky"></i><i class="w"></i><i class="ci c-apricot"></i><i class="tr c-coral"></i><i class="ci c-lime"></i><i class="c-sky"></i><i class="c-sage"></i><i class="c-sky"></i><i class="ar c-lime"></i><i class="qt c-apricot"></i><i class="tr c-sage"></i><i class="w"></i><i class="c-lime"></i><i class="c-apricot"></i><i class="tr c-coral"></i><i class="w"></i><i class="ci c-coral"></i><i class="c-steel"></i><i class="ci c-steel"></i><i class="w"></i><i class="ci c-sage"></i><i class="ar c-sage"></i><i class="c-lime2"></i><i class="c-lime2"></i><i class="c-coral"></i><i class="qt c-sage"></i><i class="w"></i><i class="w"></i><i class="c-sky"></i><i class="qt2 c-coral"></i><i class="ci c-sky"></i><i class="ar c-apricot"></i><i class="c-sky"></i><i class="c-apricot"></i><i class="ci c-lime"></i><i class="ar c-sage"></i><i class="ar c-lime2"></i><i class="w"></i><i class="c-lime"></i></div><div class="mosaic-labels" aria-hidden="true"><span>Managed</span><span>Monitored</span><span>Automated</span><span>Answered</span></div>
+    <div class="hero2-foot">
+      <span class="mono bdot">DevStarLabs &mdash; Tamil Nadu, India</span>
+      <span class="mono">DPIIT &middot; GeM seller &middot; AWS Select</span>
+      <span class="mono">Scroll &darr;</span>
+    </div>
+  </div>
+  <div class="mt"><div class="gline" aria-hidden="true"><i class="l"></i><i class="r"></i></div><div class="mos-frame"><span class="mlab tl">Deployed</span><span class="mlab tr">Monitored</span><span class="mlab bl">Answered</span><span class="mlab br">Backed up</span><div class="mosaic" aria-hidden="true"><i class="c-lime2"></i><i class="ar c-coral"></i><i class="c-sage"></i><i class="ci c-sky"></i><i class="w"></i><i class="ci c-apricot"></i><i class="tr c-coral"></i><i class="ci c-lime"></i><i class="c-sky"></i><i class="c-sage"></i><i class="c-sky"></i><i class="ar c-lime"></i><i class="qt c-apricot"></i><i class="tr c-sage"></i><i class="w"></i><i class="c-lime"></i><i class="c-apricot"></i><i class="tr c-coral"></i><i class="w"></i><i class="ci c-coral"></i><i class="c-steel"></i><i class="ci c-steel"></i><i class="w"></i><i class="ci c-sage"></i><i class="ar c-sage"></i><i class="c-lime2"></i><i class="c-lime2"></i><i class="c-coral"></i><i class="qt c-sage"></i><i class="w"></i><i class="w"></i><i class="c-sky"></i><i class="qt2 c-coral"></i><i class="ci c-sky"></i><i class="ar c-apricot"></i><i class="c-sky"></i><i class="c-apricot"></i><i class="ci c-lime"></i><i class="ar c-sage"></i><i class="ar c-lime2"></i><i class="w"></i><i class="c-lime"></i></div></div><div class="gline" aria-hidden="true"><i class="l"></i><i class="r"></i></div></div>
+</section>
+<section class="cw" data-surface="signal" aria-label="The interruptions we take over">
+  <div class="wrap cw-grid">
+    <h2 class="cw-l" data-reveal>Too many tools, tabs and tickets pulling you away.</h2>
+    <div class="cw-chips" aria-hidden="true">
+      <span class="par">(</span>
+      <span style="--i:1">Which server is down?</span>
+      <span style="--i:2">Did the backup run?</span>
+      <span style="--i:3">Who has prod access?</span>
+      <span style="--i:4">The AWS bill, again</span>
+      <span style="--i:5">Deploy on a Friday?</span>
+      <span style="--i:6">Missed WhatsApp enquiry</span>
+      <span style="--i:7">Patches&hellip; next quarter?</span>
+      <span style="--i:8">That one machine nobody owns</span>
+      <span style="--i:9">Is the site even up?</span>
+      <span style="--i:10">Chasing vendors</span>
+      <span class="par">)</span>
+    </div>
+    <h2 class="cw-r" data-reveal>from the work that bills.</h2>
   </div>
 </section>
-<div class="marq" data-surface="paper">
-  <div class="marq-track" aria-hidden="true">
-    <div class="marq-inner">
-      <span>more bookings from enquiries</span><span class="dot"></span>
-      <span class="ol">fewer missed prospects</span><span class="dot d-coral"></span>
-      <span>lower cloud bills</span><span class="dot d-sky"></span>
-      <span class="ol">reliable releases</span><span class="dot d-apricot"></span>
-      <span>recovered servers</span><span class="dot d-sage"></span>
-    </div>
-    <div class="marq-inner">
-      <span>more bookings from enquiries</span><span class="dot"></span>
-      <span class="ol">fewer missed prospects</span><span class="dot d-coral"></span>
-      <span>lower cloud bills</span><span class="dot d-sky"></span>
-      <span class="ol">reliable releases</span><span class="dot d-apricot"></span>
-      <span>recovered servers</span><span class="dot d-sage"></span>
-    </div>
-  </div>
-  <button class="marq-btn" aria-pressed="false">Pause</button>
-  <span class="sr">The outcomes we sell: more bookings from enquiries, fewer missed prospects, lower cloud bills, reliable releases, recovered servers.</span>
-</div>
-<section class="sec" id="channels" data-surface="paper">
+<section class="ledger" data-surface="paper">
   <div class="wrap">
-    <div class="sec-head"><span class="mono">01</span><h2 class="statement">Three services. One delivery system.</h2></div>
-    <div class="rows">
-      <a class="row" href="cloud-devops.html">
-        <span class="num">01</span>
-        <span class="glyph" aria-hidden="true"></span>
-        <span class="row-body">
+    <div class="ledger-head">
+      <span class="hand">where it leaks</span>
+      <h2>Small leaks, a long year.</h2>
+      <p class="lede muted">The gaps we take over &mdash; each one small on its own, expensive by the quarter.</p>
+    </div>
+    <div class="ledger-grid">
+      <div class="lcard"><span class="ic ic-coral" aria-hidden="true"></span>
+        <h3>Cloud spend nobody reviews</h3>
+        <p class="sub">Idle instances, over-sized databases, forgotten environments</p>
+        <p class="st">Reviewed every month</p></div>
+      <div class="lcard"><span class="ic ic-sky" aria-hidden="true"></span>
+        <h3>Backups never restored</h3>
+        <p class="sub">&ldquo;It should work&rdquo; is not a recovery plan</p>
+        <p class="st">Drilled &amp; verified monthly</p></div>
+      <div class="lcard"><span class="ic ic-sage" aria-hidden="true"></span>
+        <h3>Enquiries answered too late</h3>
+        <p class="sub">WhatsApp and calls sitting through rush hours</p>
+        <p class="st">Answered in minutes</p></div>
+      <div class="lcard"><span class="ic ic-steel" aria-hidden="true"></span>
+        <h3>Patches &ldquo;from next week&rdquo;</h3>
+        <p class="sub">Servers nobody owns, updates nobody applies</p>
+        <p class="st">Coordinated on a cadence</p></div>
+      <div class="lstat"><p class="n">&#8377;10k&ndash;25k</p><p class="c">the paid pilot that starts it</p></div>
+      <div class="lstat"><p class="n">3 <small>in</small> 1</p><p class="c">three services, one team</p></div>
+      <div class="lann"><span class="hand hand-ink">you stop chasing vendors &mdash;</span></div>
+    </div>
+    <p class="fineprint legend">Indicative pricing to validate; scope defined per contract. Every number goes in writing before work starts.</p>
+  </div>
+</section>
+<section class="featgrid" data-surface="paper" id="channels">
+  <div class="wrap">
+    <span class="hand">what we manage</span>
+    <h2 class="giant">Everything on your infrastructure, handled on a weekly rhythm.</h2>
+    <div class="featwrap">
+      <div class="featrail">
+        <span class="ptag">The retainer</span>
+        <h3>Three services. One team. One flat monthly fee.</h3>
+        <p class="aside-note muted">Scope is written per contract; every month ends with a written
+        summary of what changed, what it cost and what we recommend next.</p>
+      </div>
+      <div class="featcards">
+        <a class="fcard fc-sky" href="cloud-devops.html">
           <h3>Managed Cloud &amp; DevOps</h3>
-          <ul>
-            <li>Lower cloud bills, reviewed monthly</li>
-            <li>Deploys that don&rsquo;t need prayer</li>
-            <li>Servers that come back after a crash</li>
-          </ul>
-          <span class="tlink go">Explore the service <span class="arr">&rarr;</span></span>
-        </span>
-      </a>
-      <a class="row" href="security.html">
-        <span class="num">02</span>
-        <span class="glyph g-ar g-sky" aria-hidden="true"></span>
-        <span class="row-body">
+          <p>Cost reviews, deployments, monitoring, backups and disaster recovery &mdash; owned end to end.</p>
+          <span class="gmark" aria-hidden="true"><svg viewBox="0 0 128 48" width="118" height="44" fill="currentColor" role="img"><circle cx="22" cy="24" r="19"/><circle cx="56" cy="24" r="19"/><ellipse cx="94" cy="24" rx="13" ry="19"/></svg></span>
+        </a>
+        <a class="fcard fc-steel" href="security.html">
           <h3>Managed Security</h3>
-          <ul>
-            <li>Hygiene before hardware</li>
-            <li>Honest scope &mdash; not a 24/7 SOC promise</li>
-            <li>Formal audits with CERT-In empanelled partners</li>
-          </ul>
-          <span class="tlink go">Explore the service <span class="arr">&rarr;</span></span>
-        </span>
-      </a>
-      <a class="row" href="ai-automation.html">
-        <span class="num">03</span>
-        <span class="glyph g-ci g-coral" aria-hidden="true"></span>
-        <span class="row-body">
+          <p>Configuration reviews, patch coordination, MFA and backup drills &mdash; formal audits with CERT-In empanelled partners.</p>
+          <span class="gmark" aria-hidden="true"><svg viewBox="0 0 96 96" width="64" height="64" fill="currentColor" role="img"><rect x="40" y="6" width="16" height="84"/><rect x="40" y="6" width="16" height="84" transform="rotate(60 48 48)"/><rect x="40" y="6" width="16" height="84" transform="rotate(120 48 48)"/></svg></span>
+        </a>
+        <a class="fcard fc-coral" href="ai-automation.html">
           <h3>AI Automation</h3>
-          <ul>
-            <li>Every enquiry answered in minutes</li>
-            <li>In Tamil or English, by voice or WhatsApp</li>
-            <li>Qualified enquiries reach your team, not a spam folder</li>
-          </ul>
-          <span class="tlink go">Explore the service <span class="arr">&rarr;</span></span>
-        </span>
-      </a>
+          <p>Every venue enquiry answered in minutes &mdash; Tamil or English, by voice or WhatsApp, qualified leads to your team.</p>
+          <span class="gmark" aria-hidden="true"><svg viewBox="0 0 96 48" width="72" height="36" fill="currentColor" role="img"><path d="M8 46 A40 40 0 0 1 88 46 L64 46 A16 16 0 0 0 32 46 Z"/></svg></span>
+        </a>
+        <a class="fcard fc-lime" href="outsourced-it.html">
+          <h3>Outsourced IT</h3>
+          <p class="upnext">the whole department</p>
+          <p>Hosting, email, devices, internal software and honest advice &mdash; one number to call.</p>
+          <span class="gmark" aria-hidden="true"><svg viewBox="0 0 96 48" width="72" height="36" fill="currentColor" role="img"><path d="M38 4 A20 20 0 1 0 38 44 A25 25 0 0 1 38 4 Z"/><path d="M62 4 A20 20 0 1 0 62 44 A25 25 0 0 1 62 4 Z" opacity=".85"/></svg></span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 <section class="sec s-lemon" id="retainer" data-surface="field">
   <div class="wrap">
-    <div class="sec-head"><span class="mono">02</span><h2 class="statement">How a monthly retainer works</h2></div>
-    <div class="pin">
+    <span class="mono eyebrow bdot">The cadence<span class="blink" aria-hidden="true"></span></span>
+    <h2 class="statement">How a monthly retainer works</h2>
+    <div class="pin mt">
       <div class="pin-visual">
         <span class="mono pv-label">The cadence</span>
         <p class="pv-num">01</p>
@@ -669,20 +864,39 @@ html.no-js .nojs-nav{display:flex}
     </div>
   </div>
 </section>
-<section class="band" data-surface="signal" id="pilot-band">
+<section class="oneplan" data-surface="paper" id="pilot-band">
   <div class="wrap">
-    <span class="mono eyebrow bdot">03 &mdash; The first step is paid, so it is honest<span class="blink" aria-hidden="true"></span></span>
-    <p class="poster">Start with a pilot.<br><span class="selbox"><i class="c1" aria-hidden="true"></i><i class="c2" aria-hidden="true"></i><i class="c3" aria-hidden="true"></i><i class="c4" aria-hidden="true"></i>&#8377;10,000&ndash;<wbr>&#8377;25,000.</span> Scope fixed before we begin.</p>
-    <a class="btn btn-glow" href="pilot.html" data-reveal><span>Book a paid pilot review</span></a>
-    <p class="band-note" data-reveal>A fixed-scope review of your cloud and deployment setup: operational
-    bottlenecks, unnecessary spend, reliability risks. It converts into a monthly contract only if you
-    want the fixes maintained.</p>
+    <div class="oneplan-head">
+      <h2>One retainer.<br>Everything included.</h2>
+      <span class="hand">indicative &mdash; scope fixed per contract</span>
+    </div>
+    <div class="plan">
+      <div class="plan-a">
+        <p class="pname">Managed retainer</p>
+        <p class="price">&#8377;30,000</p>
+        <p class="per">from / month</p>
+      </div>
+      <div class="plan-b">
+        <h3>What&rsquo;s included</h3>
+        <ul class="inc">
+          <li>Cloud cost review, every month</li>
+          <li>Deploys, monitoring &amp; backup drills</li>
+          <li>Security hygiene &amp; patch coordination</li>
+          <li>Enquiries answered in Tamil &amp; English</li>
+          <li>Quarterly re-baseline, written summary <span class="sm">scope defined per contract</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="plan-cta">
+      <a href="pilot.html"><span>Start with the paid pilot &mdash; &#8377;10,000&ndash;&#8377;25,000</span><span class="pc-arr" aria-hidden="true">&#8599;</span></a>
+    </div>
   </div>
 </section>
 <section class="sec" data-surface="paper">
   <div class="wrap">
-    <div class="sec-head"><span class="mono">04</span><h2 class="statement">Who this is for</h2></div>
-    <div class="rows" data-dgroup>
+    <span class="mono eyebrow bdot">Fit check</span>
+    <h2 class="statement">Who this is for</h2>
+    <div class="rows mt" data-dgroup>
       <div class="row" data-reveal><span class="num">a.</span><span class="glyph g-ci g-sage" aria-hidden="true"></span><span class="row-body">
         <h3>SaaS teams of 3&ndash;30 developers</h3>
         <p>No dedicated DevOps engineer: the cloud bill keeps rising, deploys are scary, and
@@ -702,36 +916,40 @@ html.no-js .nojs-nav{display:flex}
     </div>
   </div>
 </section>
-<section class="sec" data-surface="paper">
-  <div class="wrap">
-    <div class="sec-head"><span class="mono">05</span><h2 class="statement">Questions we get first</h2></div>
-    <div class="faq">
-      <details class="faq-item"><summary class="faq-q" aria-expanded="false">We already have developers. Why you?<span class="pl" aria-hidden="true"></span></summary>
+<section class="faqx" data-surface="paper" id="faq">
+  <div class="wrap faqx-grid">
+    <div class="faqx-left">
+      <span class="hand">FAQ</span>
+      <h2 class="giant">Common questions, plain answers.</h2>
+    </div>
+    <div class="acc">
+      <details class="faq-item"><summary aria-expanded="false">We already have developers. Why you?<span class="ax" aria-hidden="true"></span></summary>
         <div class="faq-a"><div>Your team ships product; we keep the platform underneath it running.
         We complement engineers &mdash; costs, pipelines, monitoring, backups &mdash; instead of replacing
         them. If you have no engineers at all, see the outsourced technology department.</div></div></details>
-      <details class="faq-item"><summary class="faq-q" aria-expanded="false">What does &ldquo;managed&rdquo; actually mean?<span class="pl" aria-hidden="true"></span></summary>
+      <details class="faq-item"><summary aria-expanded="false">What does &ldquo;managed&rdquo; actually mean?<span class="ax" aria-hidden="true"></span></summary>
         <div class="faq-a"><div>A named engineer, a monthly cadence and a written scope &mdash; not a ticket
         queue. You get a monthly summary of what changed, what it cost, and what we recommend next.</div></div></details>
-      <details class="faq-item"><summary class="faq-q" aria-expanded="false">How is pricing decided?<span class="pl" aria-hidden="true"></span></summary>
+      <details class="faq-item"><summary aria-expanded="false">How is pricing decided?<span class="ax" aria-hidden="true"></span></summary>
         <div class="faq-a"><div>Start with the paid pilot (indicative &#8377;10,000&ndash;&#8377;25,000). After that,
         retainers are quoted per scope &mdash; the package tables on each service page are indicative
         pricing to validate, and the scope is defined per contract before you sign.</div></div></details>
-      <details class="faq-item"><summary class="faq-q" aria-expanded="false">Can we start with just the pilot?<span class="pl" aria-hidden="true"></span></summary>
+      <details class="faq-item"><summary aria-expanded="false">Can we start with just the pilot?<span class="ax" aria-hidden="true"></span></summary>
         <div class="faq-a"><div>Yes. The pilot stands on its own: findings, prioritised fixes and a fixed
         quote. The monthly contract only exists if you decide the ongoing service is worth it.</div></div></details>
-      <details class="faq-item"><summary class="faq-q" aria-expanded="false">Do you handle formal security certification?<span class="pl" aria-hidden="true"></span></summary>
+      <details class="faq-item"><summary aria-expanded="false">Do you handle formal security certification?<span class="ax" aria-hidden="true"></span></summary>
         <div class="faq-a"><div>We prepare and manage everything up to the audit, then formal certification
         audits are delivered with CERT-In empanelled audit partners. We are honest about that boundary.</div></div></details>
-      <details class="faq-item"><summary class="faq-q" aria-expanded="false">We&rsquo;re outside Tamil Nadu &mdash; still fine?<span class="pl" aria-hidden="true"></span></summary>
+      <details class="faq-item"><summary aria-expanded="false">We&rsquo;re outside Tamil Nadu &mdash; still fine?<span class="ax" aria-hidden="true"></span></summary>
         <div class="faq-a"><div>Yes, we work remote-first. On-site days are practical around Tamil Nadu
         【cities covered】; further afield we agree travel explicitly before any quote.</div></div></details>
     </div>
   </div>
 </section>
-<section class="sec s-lemon" data-surface="field">
+<section class="sec s-lemon" data-surface="field" id="contact-cta">
   <div class="wrap">
-    <div class="sec-head"><span class="mono">06</span><h2 class="statement">Tell us what&rsquo;s breaking &mdash; or what should be earning.</h2></div>
+    <span class="mono eyebrow bdot">Start here</span>
+    <h2 class="statement">Tell us what&rsquo;s breaking &mdash; or what should be earning.</h2>
     <div class="two-col">
       <form class="form two" data-form action="#" method="post">
         <div class="fld"><label for="h-name">Name</label><input id="h-name" name="name" type="text" autocomplete="name" required><span class="msg"></span></div>
@@ -762,41 +980,27 @@ html.no-js .nojs-nav{display:flex}
     </div>
   </div>
 </section>
+<section class="outro" data-surface="paper" aria-label="Closing note">
+  <canvas aria-hidden="true"></canvas>
+  <div class="wrap outro-words">
+    <div class="owrow r1"><span>Servers calm,</span></div>
+    <div class="owrow r2"><span>bills lower,</span></div>
+    <div class="owrow r3"><span>enquiries answered.</span></div>
+  </div>
+</section>
 
 </main>
 <footer class="ftr">
-  <div>
-    <p class="wordmark-poster">DevStar<b>Labs</b></p>
-    <div class="ftr-grid">
-      <div>
-        <h3>Start here</h3>
-        <p class="aside-note">A paid, fixed-scope pilot: we review your cloud and deployment
-        setup, then you decide whether to keep us on. No free audits, no open-ended consulting.</p>
-        <p class="mt"><a class="btn" href="pilot.html"><span>Book a paid pilot review</span></a></p>
-        <p class="mt mono">We reply within one working day</p>
+  <div class="wrap">
+    <div class="legal">
+      <div class="legal-l">
+        <span>&copy; 2026 DevStarLabs</span>
+        <span class="mono">DPIIT-recognised &middot; GeM seller &middot; AWS Select partner</span>
+        <span class="mono clock" id="clock">--:--:-- IST</span>
       </div>
-      <div>
-        <h3>Contact</h3>
-        <ul>
-          <li><a href="contact.html">Contact form</a></li>
-          <li>WhatsApp: +91 【WhatsApp number】</li>
-          <li>Email: 【email】</li>
-          <li>Tamil Nadu, India 【city】</li>
-        </ul>
-        <h3 class="mt">Pages</h3>
-        <ul><li><a href="index.html">Home</a></li><li><a href="cloud-devops.html">Managed Cloud & DevOps</a></li><li><a href="security.html">Managed Security</a></li><li><a href="ai-automation.html">AI Automation</a></li><li><a href="outsourced-it.html">Outsourced Technology Department</a></li><li><a href="government-enterprise.html">Government & Enterprise</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="pilot.html">Pilot offer</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
-      </div>
-      <div>
-        <h3>Credentials</h3>
-        <ul class="cred"><li><span>DPIIT-recognised startup</span><span class="st">Recognised</span></li><li><span>Udyam / MSME registration</span><span class="st">Registered</span></li><li><span>GeM &middot; Startup Runway</span><span class="st">Seller</span></li><li><span>AWS Partner Network</span><span class="st">Select</span></li><li><span>Zoho &amp; Freshworks partners</span><span class="st prog">In progress</span></li><li><span>Security audits with CERT-In empanelled partners</span><span class="st">How we deliver</span></li></ul>
-      </div>
+      <nav class="legal-r" aria-label="Footer"><a href="index.html">Home</a><a href="cloud-devops.html">Managed Cloud & DevOps</a><a href="security.html">Managed Security</a><a href="ai-automation.html">AI Automation</a><a href="outsourced-it.html">Outsourced Technology Department</a><a href="government-enterprise.html">Government & Enterprise</a><a href="case-studies.html">Case Studies</a><a href="pilot.html">Pilot offer</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
     </div>
-    <div class="ftr-line" aria-hidden="true"></div>
-    <div class="ftr-base">
-      <span>© 2026 DevStarLabs</span>
-      <span class="legend">Indicative pricing to validate; scope defined per contract.</span>
-      <span class="mono clock" id="clock">--:--:-- IST</span>
-    </div>
+    <p class="legend">Indicative pricing to validate; scope defined per contract. We reply within one working day.</p>
   </div>
 </footer>
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site index">
@@ -945,6 +1149,50 @@ function initMarquee(){
     if(paused){m.removeAttribute('data-paused'); btn.textContent='Pause'; btn.setAttribute('aria-pressed','false')}
     else{m.setAttribute('data-paused',''); btn.textContent='Play'; btn.setAttribute('aria-pressed','true')}
   });
+}
+
+/* ---------- header compacts on scroll ---------- */
+function initScrollNav(){
+  var h=qs('#hdr'); if(!h) return;
+  var ticking=false;
+  function on(){
+    if(ticking) return;
+    ticking=true;
+    requestAnimationFrame(function(){
+      h.classList.toggle('scrolled', window.scrollY>60);
+      ticking=false;
+    });
+  }
+  on();
+  window.addEventListener('scroll',on,{passive:true});
+}
+
+/* ---------- outro confetti field (decorative, static under reduced motion) ---------- */
+function initConfetti(){
+  var c=qs('.outro canvas'); if(!c||!c.getContext) return;
+  var ctx=c.getContext('2d');
+  var COLS=['#BCE6FA','#C4F041','#FA8E66','#AAC2AA','#0F6E57','#E0F661','#9EC3D5'];
+  function draw(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=c.clientWidth,h=c.clientHeight;
+    if(!w||!h) return;
+    c.width=Math.round(w*dpr); c.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    var n=Math.floor(w*h/2400);
+    for(var i=0;i<n;i++){
+      var y=Math.pow(Math.random(),.55)*h;      /* bias squares toward the bottom */
+      var s=Math.random()<.85?4:8;
+      ctx.globalAlpha=.45+Math.random()*.55;
+      ctx.fillStyle=COLS[Math.floor(Math.random()*COLS.length)];
+      ctx.fillRect(Math.random()*w,y,s,s);
+    }
+    ctx.globalAlpha=1;
+  }
+  draw();
+  if(RM) return;
+  var t;
+  window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(draw,220) },{passive:true});
 }
 
 /* ---------- menu ---------- */
@@ -1260,7 +1508,7 @@ function initFaq(){
 function init(){
   initReveal(); initSplit(); initRoll(); initMosaic(); initMarquee(); initMenu(); initCurtain(); initProgress();
   initHeroLine(); initPins(); initVenue(); initTimeline(); initBits(); initFaq();
-  initCursor(); initClock(); initForms(); initTabPause();
+  initCursor(); initClock(); initForms(); initTabPause(); initScrollNav(); initConfetti();
 }
 if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded',init);
 })();
