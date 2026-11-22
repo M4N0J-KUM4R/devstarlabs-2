@@ -415,10 +415,10 @@ html.js .curtain.show{display:flex}
   transition:width .25s var(--eo),height .25s var(--eo),margin .25s var(--eo),background-color .25s var(--eo),opacity .3s;
   display:none;align-items:center;justify-content:center}
 html.js.fine .cursor{display:flex}
-.cursor.big{width:74px;height:74px;margin:-37px 0 0 -37px;background:var(--ink)}
+.cursor.big{width:74px;height:74px;margin:-37px 0 0 -37px;background:rgba(28,28,26,.14)}
 .cursor .cl{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--paper);opacity:0;transition:opacity .2s}
-.cursor.big .cl{opacity:1}
+.cursor.big .cl{opacity:1;color:var(--ink)}
 /* ============ progress line ============ */
 .progress{position:fixed;left:clamp(8px,1.5vw,22px);top:0;bottom:0;width:2px;z-index:70;pointer-events:none}
 .progress .bar{position:absolute;inset:0;background:var(--deep);transform:scaleY(0);transform-origin:top}
