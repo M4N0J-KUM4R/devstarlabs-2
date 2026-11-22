@@ -404,6 +404,91 @@ html.no-js .ftr-line{transform:scaleX(1)}
 .menu ol a:hover{transform:translateX(.5em)}
 .menu ol .mnum{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;color:var(--deep)}
 .menu-foot{margin-top:auto;padding-top:2rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
+
+/* ============ loader (loopsii-style) ============ */
+html.js .loader{position:fixed;inset:0;z-index:150;color:var(--ink)}
+html.no-js .loader,html.no-js .loader *{display:none!important}
+html.js body:not(.loaded) main{visibility:hidden}
+.loader_sheet{position:absolute;inset:0;background:var(--lime)}
+.loader_box{position:absolute;inset:0}
+.loader_line{position:absolute;background:#0003}
+.loader_line.lx{left:-100vw;right:-100vw;height:.75px}
+.loader_line.lx.t{top:0}.loader_line.lx.b{bottom:0}
+.loader_line.ly{top:-100vh;bottom:-100vh;width:.75px}
+.loader_line.ly.l{left:0}.loader_line.ly.r{right:0}
+.loader_frame{position:absolute;inset:-1px;border:1px solid var(--ink);opacity:0;
+  transition:opacity .55s var(--eo)}
+.loader_dot{position:absolute;width:8px;height:8px;background:var(--ink);margin:-4px 0 0 -4px}
+.loader_dot.tl{left:0;top:0}.loader_dot.tr{left:100%;top:0}
+.loader_dot.br{left:100%;top:100%}.loader_dot.bl{left:0;top:100%}
+.loader_brand{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--disp);font-weight:600;letter-spacing:-.02em;font-size:clamp(1.7rem,4.2vw,2.7rem);
+  opacity:0;transition:opacity .5s var(--eo),transform .6s var(--eio)}
+.loader_counter{position:absolute;left:0;right:0;bottom:2.2rem;text-align:center;
+  font-family:var(--mono);font-size:.8125rem;letter-spacing:.1em;
+  opacity:0;transition:opacity .5s var(--eo)}
+.loader.exit .loader_brand{opacity:0;transform:translateY(-14px)}
+.loader.exit .loader_counter,.loader.exit .loader_box{opacity:0}
+.loader.exit .loader_box{transition:opacity .4s var(--eo)}
+.loader{transition:clip-path 1s var(--eio)}
+/* ============ fine grid background (like original grid-lines) ============ */
+.grid-lines{background-image:linear-gradient(90deg,rgba(250,142,102,.16) 1px,transparent 1px),
+  linear-gradient(rgba(250,142,102,.16) 1px,transparent 1px);background-size:34px 34px}
+/* ============ morphing SVG mosaic cells ============ */
+.mosaic .me,.mos-el .me{display:block;position:relative}
+.mosaic .me svg,.mos-el .me svg{display:block;width:100%;height:100%;transition:transform .5s var(--eo)}
+.mosaic .me.pulse svg{transform:scale(.9)}
+.mosaic .me.w,.mos-el .me.w{background:var(--paper)}
+html.js .mosaic .me,.mos-el .me{opacity:0;transform:scale(.25);
+  transition:opacity .55s var(--eo),transform .55s var(--eo);
+  transition-delay:calc(var(--i,0)*34ms)}
+html.js .mosaic.revealed .me,html.js .mos-el.revealed .me{opacity:1;transform:none}
+html.no-js .mosaic .me,.mos-el .me{opacity:1}
+body.hiddentab .mosaic .me,.mos-el .me{transition:none}
+/* hero-grade mosaic (first band on home): loopsii hero-el structure */
+.mos-hero .mos-clip{--vcols:11;--cell:clamp(46px,7.6vw,120px);
+  --hide:calc((21 - var(--vcols))/2);
+  overflow:hidden;display:flex;justify-content:center;
+  clip-path:inset(0 calc(var(--hide)*var(--cell)) calc((1 - var(--reveal,0))*66%) calc(var(--hide)*var(--cell)))}
+@media(max-width:1023px){.mos-hero .mos-clip{--vcols:7}}
+.mos-el{--cols:21;display:grid;width:max-content;
+  grid-template-columns:repeat(21,var(--cell));grid-template-rows:repeat(3,var(--cell))}
+.mos-el .me svg{width:100%;height:100%}
+.mos-loop-cir{position:absolute;inset:0;border-radius:50%;background:var(--coral)}
+.mos-loop-svg{position:absolute;inset:0;margin:auto;width:58%;height:58%}
+.mos-loop path.loop{fill:none;stroke:var(--ink);stroke-width:13;stroke-linecap:round;
+  stroke-dasharray:520;stroke-dashoffset:520}
+html.js .revealed .mos-loop path.loop{animation:loopdraw 3.4s var(--eio) infinite}
+@keyframes loopdraw{0%{stroke-dashoffset:520}55%{stroke-dashoffset:0}78%{stroke-dashoffset:0}100%{stroke-dashoffset:520}}
+.mos-xline{position:absolute;left:-100vw;right:-100vw;height:1px;background:var(--hair);
+  transform:scaleX(.001);transition:transform 1.5s var(--eo) .35s}
+.mos-xline.top{top:-1px}.mos-xline.bottom{bottom:0}
+.revealed .mos-xline{transform:none}
+.mos-frame .mlab::before{content:"";display:inline-block;width:8px;height:8px;background:var(--ink);
+  margin-right:.45rem;opacity:0;transition:opacity .6s var(--eo) .7s}
+.revealed .mlab::before{opacity:1}
+/* ============ cycling hero title ============ */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hero2-cycle{display:block}
+.hero_titles{position:relative;display:inline-block;white-space:nowrap;vertical-align:baseline}
+.hero_title{display:inline-block}
+.hero_title:not(:first-child){position:absolute;left:0;top:0;width:max-content;height:100%}
+.hero_title-char{display:inline-block;opacity:0;visibility:hidden;
+  transform:scale(.6) rotate(var(--deg,0deg));
+  font-variation-settings:"wght" 600;
+  transition:transform .95s var(--eo),opacity .8s var(--eo),visibility .95s,font-variation-settings .95s linear;
+  will-change:transform,font-variation-settings}
+.hero_title-char.sp{transition:opacity .8s var(--eo),visibility .95s}
+.hero_title-char.on{opacity:1;visibility:visible;transform:scale(1) rotate(0deg);
+  font-variation-settings:"wght" 800}
+@media(prefers-reduced-motion:reduce){
+  html.js .loader{display:none}
+  html.js body:not(.loaded) main{visibility:visible}
+  html.js .mosaic .me,.mos-el .me{opacity:1;transform:none}
+  .hero_title-char{transition:none;opacity:1;visibility:visible;transform:none}
+}
+
 /* ============ curtain ============ */
 .curtain{position:fixed;inset:0;z-index:150;background:var(--page-field,var(--lemon));color:var(--ink);
   display:none;align-items:flex-end;padding:var(--pad);transform:translateY(0)}
@@ -716,6 +801,19 @@ details[open] .ax::after{transform:rotate(90deg)}
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"DevStarLabs","url":"https://devstarlabs.in/","areaServed":"Tamil Nadu, India","description":"Managed cloud, DevOps, security and AI-automation services on monthly retainers. DPIIT-recognised startup, Udyam/MSME registered, GeM seller, AWS Select partner.","address":{"@type":"PostalAddress","addressRegion":"Tamil Nadu","addressCountry":"IN"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"We already have developers - why DevStarLabs?","acceptedAnswer":{"@type":"Answer","text":"We complement engineers: costs, pipelines, monitoring and backups instead of replacing them."}},{"@type":"Question","name":"What does managed mean?","acceptedAnswer":{"@type":"Answer","text":"A named engineer, a monthly cadence and a written scope - not a ticket queue."}},{"@type":"Question","name":"How is pricing decided?","acceptedAnswer":{"@type":"Answer","text":"A paid pilot of INR 10,000-25,000 first; retainers quoted per defined scope."}}]}]</script>
 </head>
 <body data-active-surface="paper" data-field="lemon">
+
+<div id="loader" class="loader" data-loader aria-hidden="true">
+  <div class="loader_sheet"></div>
+  <div class="loader_box">
+    <div class="loader_line lx t"></div><div class="loader_line lx b"></div>
+    <div class="loader_line ly l"></div><div class="loader_line ly r"></div>
+    <div class="loader_frame"></div>
+    <span class="loader_dot tl"></span><span class="loader_dot tr"></span>
+    <span class="loader_dot br"></span><span class="loader_dot bl"></span>
+  </div>
+  <div class="loader_brand">DevStarLabs</div>
+  <div class="loader_counter"><span class="loader_counter-value">000</span>&nbsp;%</div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"><span class="bar"></span></div>
 <header class="hdr" id="hdr">
@@ -734,10 +832,11 @@ details[open] .ax::after{transform:rotate(90deg)}
 <div class="cursor" aria-hidden="true"><span class="cl"></span></div>
 <main id="main">
 
-<section class="hero2" data-surface="paper" id="top">
+<section class="hero2 grid-lines" data-surface="paper" id="top">
   <div class="wrap">
     <div class="hero2-grid">
-      <h1 class="hero2-title" data-split data-d0="120">Your cloud, DevOps and AI&#8209;automation department.</h1>
+      <h1 class="sr-only">Your cloud, DevOps and AI-automation department.</h1>
+      <div class="hero2-title hero2-cycle" aria-hidden="true"><span class="hc">One team for</span> <span class="hero_titles"><span class="hero_title"><span class="hero_title-char" style="--deg:8deg">D</span><span class="hero_title-char" style="--deg:8deg">e</span><span class="hero_title-char" style="--deg:8deg">v</span><span class="hero_title-char" style="--deg:-2deg">O</span><span class="hero_title-char" style="--deg:-4deg">p</span><span class="hero_title-char" style="--deg:8deg">s</span></span><span class="hero_title"><span class="hero_title-char" style="--deg:-4deg">A</span><span class="hero_title-char" style="--deg:-6deg">I</span><span class="hero_title-char sp">&nbsp;</span><span class="hero_title-char" style="--deg:8deg">a</span><span class="hero_title-char" style="--deg:2deg">u</span><span class="hero_title-char" style="--deg:-4deg">t</span><span class="hero_title-char" style="--deg:-6deg">o</span><span class="hero_title-char" style="--deg:-8deg">m</span><span class="hero_title-char" style="--deg:6deg">a</span><span class="hero_title-char" style="--deg:8deg">t</span><span class="hero_title-char" style="--deg:-4deg">i</span><span class="hero_title-char" style="--deg:-8deg">o</span><span class="hero_title-char" style="--deg:-6deg">n</span></span><span class="hero_title"><span class="hero_title-char" style="--deg:-8deg">F</span><span class="hero_title-char" style="--deg:-8deg">i</span><span class="hero_title-char" style="--deg:-2deg">n</span><span class="hero_title-char" style="--deg:-2deg">O</span><span class="hero_title-char" style="--deg:-8deg">p</span><span class="hero_title-char" style="--deg:8deg">s</span></span><span class="hero_title"><span class="hero_title-char" style="--deg:4deg">c</span><span class="hero_title-char" style="--deg:8deg">l</span><span class="hero_title-char" style="--deg:-2deg">o</span><span class="hero_title-char" style="--deg:-2deg">u</span><span class="hero_title-char" style="--deg:2deg">d</span><span class="hero_title-char sp">&nbsp;</span><span class="hero_title-char" style="--deg:8deg">m</span><span class="hero_title-char" style="--deg:-8deg">i</span><span class="hero_title-char" style="--deg:-6deg">g</span><span class="hero_title-char" style="--deg:8deg">r</span><span class="hero_title-char" style="--deg:2deg">a</span><span class="hero_title-char" style="--deg:6deg">t</span><span class="hero_title-char" style="--deg:-6deg">i</span><span class="hero_title-char" style="--deg:2deg">o</span><span class="hero_title-char" style="--deg:4deg">n</span><span class="hero_title-char" style="--deg:-2deg">s</span></span><span class="hero_title"><span class="hero_title-char" style="--deg:2deg">s</span><span class="hero_title-char" style="--deg:-8deg">e</span><span class="hero_title-char" style="--deg:-6deg">c</span><span class="hero_title-char" style="--deg:-6deg">u</span><span class="hero_title-char" style="--deg:6deg">r</span><span class="hero_title-char" style="--deg:-6deg">i</span><span class="hero_title-char" style="--deg:2deg">t</span><span class="hero_title-char" style="--deg:6deg">y</span><span class="hero_title-char sp">&nbsp;</span><span class="hero_title-char" style="--deg:-6deg">o</span><span class="hero_title-char" style="--deg:-8deg">p</span><span class="hero_title-char" style="--deg:-8deg">s</span></span><span class="hero_title"><span class="hero_title-char" style="--deg:-2deg">2</span><span class="hero_title-char" style="--deg:-2deg">4</span><span class="hero_title-char" style="--deg:-8deg">×</span><span class="hero_title-char" style="--deg:8deg">7</span><span class="hero_title-char sp">&nbsp;</span><span class="hero_title-char" style="--deg:6deg">s</span><span class="hero_title-char" style="--deg:6deg">u</span><span class="hero_title-char" style="--deg:6deg">p</span><span class="hero_title-char" style="--deg:-6deg">p</span><span class="hero_title-char" style="--deg:-2deg">o</span><span class="hero_title-char" style="--deg:2deg">r</span><span class="hero_title-char" style="--deg:4deg">t</span></span></span></div>
       <p class="hero2-side" data-reveal>We run your infrastructure, security and lead follow-up as one monthly
       service &mdash; and we sell the outcome: lower bills, reliable releases, enquiries answered. Not the hours.</p>
     </div>
@@ -747,7 +846,7 @@ details[open] .ax::after{transform:rotate(90deg)}
       <span class="mono">Scroll &darr;</span>
     </div>
   </div>
-  <div class="mt"><div class="gline" aria-hidden="true"><i class="l"></i><i class="r"></i></div><div class="mos-frame"><span class="mlab tl">Deployed</span><span class="mlab tr">Monitored</span><span class="mlab bl">Answered</span><span class="mlab br">Backed up</span><div class="mosaic" aria-hidden="true"><i class="c-lime2"></i><i class="ar c-coral"></i><i class="c-sage"></i><i class="ci c-sky"></i><i class="w"></i><i class="ci c-apricot"></i><i class="tr c-coral"></i><i class="ci c-lime"></i><i class="c-sky"></i><i class="c-sage"></i><i class="c-sky"></i><i class="ar c-lime"></i><i class="qt c-apricot"></i><i class="tr c-sage"></i><i class="w"></i><i class="c-lime"></i><i class="c-apricot"></i><i class="tr c-coral"></i><i class="w"></i><i class="ci c-coral"></i><i class="c-steel"></i><i class="ci c-steel"></i><i class="w"></i><i class="ci c-sage"></i><i class="ar c-sage"></i><i class="c-lime2"></i><i class="c-lime2"></i><i class="c-coral"></i><i class="qt c-sage"></i><i class="w"></i><i class="w"></i><i class="c-sky"></i><i class="qt2 c-coral"></i><i class="ci c-sky"></i><i class="ar c-apricot"></i><i class="c-sky"></i><i class="c-apricot"></i><i class="ci c-lime"></i><i class="ar c-sage"></i><i class="ar c-lime2"></i><i class="w"></i><i class="c-lime"></i></div></div><div class="gline" aria-hidden="true"><i class="l"></i><i class="r"></i></div></div>
+  <div class="mt grid-lines mos-hero"><div class="gline" aria-hidden="true"><i class="l"></i><i class="r"></i></div><div class="mos-frame"><span class="mlab tl">Deployed</span><span class="mlab tr">Monitored</span><span class="mlab bl">Answered</span><span class="mlab br">Backed up</span><div class="mos-clip" aria-hidden="true"><div class="mos-el"><span class="me" style="grid-area:1/1" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--lime2)"/></svg></span><span class="me" style="grid-area:1/2" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--apricot)"/></svg></span><span class="me w" style="grid-area:1/3"></span><span class="me" style="grid-area:1/4" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--lime)"/></svg></span><span class="me" style="grid-area:1/5" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:1/6" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:1/7" data-pair='{"a": "M0,44.7 C0,20 20,0 44.7,0 H100 V100 H0 Z", "b": "M0,55 C0,24 24,0 55,0 H100 V100 H0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,44.7 C0,20 20,0 44.7,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:1/8" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me w" style="grid-area:1/9"></span><span class="me" style="grid-area:1/10" data-pair='{"a": "M0,0 L100,100 L0,100 Z", "b": "M12,0 L100,88 L0,100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 L100,100 L0,100 Z" fill="var(--lime2)"/></svg></span><span class="me" style="grid-area:1/11" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:1/12" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:1/13" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--sage)"/></svg></span><span class="me w" style="grid-area:1/14"></span><span class="me" style="grid-area:1/15" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:1/16" data-pair='{"a": "M0,0 H100 V55.3 C100,75.25 75.25,100 55.3,100 H0 Z", "b": "M0,0 H100 V62 C100,80 80,100 62,100 H0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V55.3 C100,75.25 75.25,100 55.3,100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:1/17" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--lime)"/></svg></span><span class="me" style="grid-area:1/18" data-pair='{"a": "M0,0 L100,100 L0,100 Z", "b": "M12,0 L100,88 L0,100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 L100,100 L0,100 Z" fill="var(--lime)"/></svg></span><span class="me" style="grid-area:1/19" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sky)"/></svg></span><span class="me w" style="grid-area:1/20"></span><span class="me" style="grid-area:1/21" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sage)"/></svg></span><span class="me" style="grid-area:2/1" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:2/2" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:2/3" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--lime)"/></svg></span><span class="me w" style="grid-area:2/4"></span><span class="me" style="grid-area:2/5" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:2/6" data-pair='{"a": "M50,0 L100,50 L50,100 L0,50 Z", "b": "M50,4 L96,50 L50,96 L4,50 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 L100,50 L50,100 L0,50 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:2/7" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sage)"/></svg></span><span class="me" style="grid-area:2/8" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:2/9" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--lime)"/></svg></span><span class="me mos-loop" style="grid-area:2/10"><span class="mos-loop-cir"></span><svg class="mos-loop-svg" viewBox="0 0 120 100" aria-hidden="true"><path class="loop" d="M28,64 C24,38 48,26 62,40 C78,56 60,78 44,68 C28,58 44,30 70,32 C88,34 96,48 94,60"/></svg></span><span class="me" style="grid-area:2/11" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--coral)"/></svg></span><span class="me w" style="grid-area:2/12"></span><span class="me" style="grid-area:2/13" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sage)"/></svg></span><span class="me" style="grid-area:2/14" data-pair='{"a": "M0,44.7 C0,20 20,0 44.7,0 H100 V100 H0 Z", "b": "M0,55 C0,24 24,0 55,0 H100 V100 H0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,44.7 C0,20 20,0 44.7,0 H100 V100 H0 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:2/15" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:2/16" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--apricot)"/></svg></span><span class="me" style="grid-area:2/17" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--steel)"/></svg></span><span class="me w" style="grid-area:2/18"></span><span class="me" style="grid-area:2/19" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--lime)"/></svg></span><span class="me" style="grid-area:2/20" data-pair='{"a": "M50,0 L100,50 L50,100 L0,50 Z", "b": "M50,4 L96,50 L50,96 L4,50 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 L100,50 L50,100 L0,50 Z" fill="var(--apricot)"/></svg></span><span class="me w" style="grid-area:2/21"></span><span class="me" style="grid-area:3/1" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:3/2" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:3/3" data-pair='{"a": "M0,0 L100,100 L0,100 Z", "b": "M12,0 L100,88 L0,100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 L100,100 L0,100 Z" fill="var(--steel)"/></svg></span><span class="me" style="grid-area:3/4" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:3/5" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--apricot)"/></svg></span><span class="me" style="grid-area:3/6" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sky)"/></svg></span><span class="me w" style="grid-area:3/7"></span><span class="me" style="grid-area:3/8" data-pair='{"a": "M0,0 H100 V55.3 C100,75.25 75.25,100 55.3,100 H0 Z", "b": "M0,0 H100 V62 C100,80 80,100 62,100 H0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V55.3 C100,75.25 75.25,100 55.3,100 H0 Z" fill="var(--sage)"/></svg></span><span class="me" style="grid-area:3/9" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--lime2)"/></svg></span><span class="me" style="grid-area:3/10" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:3/11" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sky)"/></svg></span><span class="me w" style="grid-area:3/12"></span><span class="me" style="grid-area:3/13" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:3/14" data-pair='{"a": "M0,0 L100,100 L0,100 Z", "b": "M12,0 L100,88 L0,100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 L100,100 L0,100 Z" fill="var(--coral)"/></svg></span><span class="me" style="grid-area:3/15" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--sage)"/></svg></span><span class="me" style="grid-area:3/16" data-pair='{"a": "M0,44.7 C0,20 20,0 44.7,0 H100 V100 H0 Z", "b": "M0,55 C0,24 24,0 55,0 H100 V100 H0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,44.7 C0,20 20,0 44.7,0 H100 V100 H0 Z" fill="var(--coral)"/></svg></span><span class="me w" style="grid-area:3/17"></span><span class="me" style="grid-area:3/18" data-pair='{"a": "M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z", "b": "M0,100 V62 C0,28 28,0 50,0 C72,0 100,28 100,62 V100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,100 V50 C0,22.39 22.39,0 50,0 C77.61,0 100,22.39 100,50 V100 Z" fill="var(--sky)"/></svg></span><span class="me" style="grid-area:3/19" data-pair='{"a": "M0,0 H100 V100 H0 Z", "b": "M0,0 V100 H100 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 V100 H0 Z" fill="var(--lime)"/></svg></span><span class="me" style="grid-area:3/20" data-pair='{"a": "M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z", "b": "M50,0 C63.5,0 100,36.5 100,50 C100,63.5 63.5,100 50,100 C36.5,100 0,63.5 0,50 C0,36.5 36.5,0 50,0 Z"}'><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50,0 C77.61,0 100,22.39 100,50 C100,77.61 77.61,100 50,100 C22.39,100 0,77.61 0,50 C0,22.39 22.39,0 50,0 Z" fill="var(--lime2)"/></svg></span></div></div></div><div class="gline" aria-hidden="true"><i class="l"></i><i class="r"></i></div></div>
 </section>
 <section class="cw" data-surface="signal" aria-label="The interruptions we take over">
   <div class="wrap cw-grid">
@@ -1134,7 +1233,7 @@ function initRoll(){
 
 /* ---------- mosaic stagger ---------- */
 function initMosaic(){
-  qsa('.mosaic').forEach(function(m){
+  qsa('.mosaic, .mos-el').forEach(function(m){
     var cells=qsa('i',m);
     cells.forEach(function(c,i){ c.style.setProperty('--i',Math.min(i,60)) });
   });
@@ -1505,8 +1604,145 @@ function initFaq(){
 }
 
 /* ---------- boot ---------- */
+
+/* ---------- loader page (loopsii-style) ---------- */
+function startReveal(instant){
+  document.body.classList.add('loaded');
+  try{document.dispatchEvent(new Event('loader:done'))}catch(e){}
+  var band=qs('.mos-hero'); if(!band) return;
+  band.classList.add('revealed');
+  var clip=qs('.mos-clip',band);
+  if(RM||!clip){ if(clip) clip.style.setProperty('--reveal','1'); return }
+  if(instant){ clip.style.setProperty('--reveal','1'); return }
+  var t0=null,D=1900;
+  function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/D,1);
+    var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    clip.style.setProperty('--reveal',e.toFixed(4));
+    if(p<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+}
+function initLoader(){
+  var L=qs('#loader'); if(!L) return;
+  if(RM){ L.parentNode.removeChild(L); document.body.classList.add('loaded'); startReveal(true); return }
+  var main=qs('main'); if(main) main.style.visibility='hidden';
+  var done=false;
+  function finish(){
+    if(done) return; done=true;
+    document.body.classList.add('loaded');
+    if(main) main.style.visibility='';
+    L.parentNode.removeChild(L);
+    startReveal(false);
+  }
+  window.__forceLoaderDone=function(){ if(!done){ done=true;
+    document.body.classList.add('loaded'); if(main) main.style.visibility='';
+    if(L.parentNode) L.parentNode.removeChild(L); startReveal(true); } };
+  setTimeout(window.__forceLoaderDone,5000);
+  var box=qs('.loader_box',L), frame=qs('.loader_frame',L), brand=qs('.loader_brand',L),
+      cnt=qs('.loader_counter',L), cv=qs('.loader_counter-value',L);
+  var begin=function(){
+    requestAnimationFrame(function(){
+      brand.style.opacity='1'; cnt.style.opacity='1';
+      var t0=null,DL=1000,DC=1900,dl0=null,dc0=null;
+      function padPx(){ var w=window.innerWidth; return Math.max(18,Math.min(46,w*.045)) }
+      function lines(ts){
+        if(dl0===null)dl0=ts; var p=Math.min((ts-dl0)/DL,1); var e=1-Math.pow(1-p,3);
+        var v=(e*padPx()).toFixed(1)+'px';
+        box.style.top=v; box.style.right=v; box.style.bottom=v; box.style.left=v;
+        if(p>=.55) frame.style.opacity='1';
+        if(p<1) requestAnimationFrame(lines);
+      }
+      requestAnimationFrame(lines);
+      function count(ts){
+        if(dc0===null)dc0=ts; var p=Math.min((ts-dc0)/DC,1);
+        var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        cv.textContent=('00'+Math.round(e*100)).slice(-3);
+        if(p<1) requestAnimationFrame(count);
+      }
+      setTimeout(function(){requestAnimationFrame(count)},650);
+      setTimeout(function(){
+        L.classList.add('exit');
+        setTimeout(function(){
+          L.style.clipPath='inset(0 0 100% 0)';
+          setTimeout(finish,950);
+        },260);
+      },2620);
+    });
+  };
+  if(document.fonts&&document.fonts.ready){
+    var raced=false; var go=function(){ if(!raced){raced=true;begin()} };
+    document.fonts.ready.then(go); setTimeout(go,700);
+  } else begin();
+}
+/* ---------- cycling hero title ---------- */
+function initCycle(){
+  var box=qs('.hero_titles'); if(!box) return;
+  var words=qsa('.hero_title',box); if(words.length<2||RM) return;
+  var i=0,started=false;
+  function put(w,on){ qsa('.hero_title-char',w).forEach(function(ch,j){
+    ch.style.transitionDelay=(on?j*38:j*30)+'ms';
+    ch.classList.toggle('on',on); }); }
+  function step(){
+    put(words[i],true);
+    setTimeout(function(){
+      put(words[i],false);
+      setTimeout(function(){ i=(i+1)%words.length; step(); },1150);
+    },2650);
+  }
+  function kick(){ if(started) return; started=true; setTimeout(step,350); }
+  if(document.body.classList.contains('loaded')) kick();
+  else document.addEventListener('loader:done',kick);
+  var obs=new MutationObserver(function(){
+    if(document.body.classList.contains('loaded')) kick(); });
+  obs.observe(document.body,{attributes:true,attributeFilter:['class']});
+}
+/* ---------- morphing mosaic cells ---------- */
+function lerpD(a,b,t){
+  var rb=a.match(/-?\d*\.?\d+/g),i=0;
+  return b.replace(/-?\d*\.?\d+/g,function(m){
+    var vb=parseFloat(m),va=parseFloat(rb[i++]);
+    return (va+(vb-va)*t).toFixed(2); });
+}
+function initMosMorph(){
+  if(RM) return;
+  qsa('.mosaic, .mos-el').forEach(function(m){
+    var cells=qsa('.me[data-pair]',m);
+    m.querySelectorAll('.me').forEach(function(c,j){ c.style.setProperty('--i',Math.min(j,60)) });
+    var heroBand=m.closest('.mos-hero');
+    var show=function(){ m.classList.add('revealed'); var b=m.closest('.mt'); if(b) b.classList.add('revealed'); };
+    if(heroBand||!('IntersectionObserver' in window)){
+      if(document.body.classList.contains('loaded')) show();
+      else document.addEventListener('loader:done',show,{once:true});
+    } else ioOnce(m,show,0);
+    if(!cells.length) return;
+    var live={};
+    function morph(c){
+      var pair=JSON.parse(c.getAttribute('data-pair'));
+      var path=qs('path',c); if(!path) return;
+      var toOther=path.getAttribute('d')===pair.a?pair.b:pair.a;
+      var from=path.getAttribute('d'),t0=null,D=1400;
+      live[c]=true;
+      function st(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/D,1);
+        var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        path.setAttribute('d',lerpD(from,toOther,e));
+        if(p<1) requestAnimationFrame(st); else { live[c]=false;
+          path.setAttribute('d',toOther); } }
+      requestAnimationFrame(st);
+    }
+    function tick(){
+      var pool=cells.filter(function(c){ return !live[c] });
+      for(var n=0;n<5&&pool.length;n++){
+        var c=pool.splice(Math.floor(Math.random()*pool.length),1)[0];
+        morph(c);
+        if(Math.random()<.4){ c.classList.add('pulse');
+          setTimeout(function(el){ return function(){ el.classList.remove('pulse') } }(c),600); }
+      }
+    }
+    setInterval(tick,2100);
+  });
+}
+
 function init(){
-  initReveal(); initSplit(); initRoll(); initMosaic(); initMarquee(); initMenu(); initCurtain(); initProgress();
+  initLoader(); initReveal(); initSplit(); initRoll(); initMosaic(); initMarquee(); initCycle(); initMosMorph(); initMenu(); initCurtain(); initProgress();
   initHeroLine(); initPins(); initVenue(); initTimeline(); initBits(); initFaq();
   initCursor(); initClock(); initForms(); initTabPause(); initScrollNav(); initConfetti();
 }

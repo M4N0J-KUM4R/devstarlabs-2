@@ -404,6 +404,91 @@ html.no-js .ftr-line{transform:scaleX(1)}
 .menu ol a:hover{transform:translateX(.5em)}
 .menu ol .mnum{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;color:var(--deep)}
 .menu-foot{margin-top:auto;padding-top:2rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
+
+/* ============ loader (loopsii-style) ============ */
+html.js .loader{position:fixed;inset:0;z-index:150;color:var(--ink)}
+html.no-js .loader,html.no-js .loader *{display:none!important}
+html.js body:not(.loaded) main{visibility:hidden}
+.loader_sheet{position:absolute;inset:0;background:var(--lime)}
+.loader_box{position:absolute;inset:0}
+.loader_line{position:absolute;background:#0003}
+.loader_line.lx{left:-100vw;right:-100vw;height:.75px}
+.loader_line.lx.t{top:0}.loader_line.lx.b{bottom:0}
+.loader_line.ly{top:-100vh;bottom:-100vh;width:.75px}
+.loader_line.ly.l{left:0}.loader_line.ly.r{right:0}
+.loader_frame{position:absolute;inset:-1px;border:1px solid var(--ink);opacity:0;
+  transition:opacity .55s var(--eo)}
+.loader_dot{position:absolute;width:8px;height:8px;background:var(--ink);margin:-4px 0 0 -4px}
+.loader_dot.tl{left:0;top:0}.loader_dot.tr{left:100%;top:0}
+.loader_dot.br{left:100%;top:100%}.loader_dot.bl{left:0;top:100%}
+.loader_brand{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--disp);font-weight:600;letter-spacing:-.02em;font-size:clamp(1.7rem,4.2vw,2.7rem);
+  opacity:0;transition:opacity .5s var(--eo),transform .6s var(--eio)}
+.loader_counter{position:absolute;left:0;right:0;bottom:2.2rem;text-align:center;
+  font-family:var(--mono);font-size:.8125rem;letter-spacing:.1em;
+  opacity:0;transition:opacity .5s var(--eo)}
+.loader.exit .loader_brand{opacity:0;transform:translateY(-14px)}
+.loader.exit .loader_counter,.loader.exit .loader_box{opacity:0}
+.loader.exit .loader_box{transition:opacity .4s var(--eo)}
+.loader{transition:clip-path 1s var(--eio)}
+/* ============ fine grid background (like original grid-lines) ============ */
+.grid-lines{background-image:linear-gradient(90deg,rgba(250,142,102,.16) 1px,transparent 1px),
+  linear-gradient(rgba(250,142,102,.16) 1px,transparent 1px);background-size:34px 34px}
+/* ============ morphing SVG mosaic cells ============ */
+.mosaic .me,.mos-el .me{display:block;position:relative}
+.mosaic .me svg,.mos-el .me svg{display:block;width:100%;height:100%;transition:transform .5s var(--eo)}
+.mosaic .me.pulse svg{transform:scale(.9)}
+.mosaic .me.w,.mos-el .me.w{background:var(--paper)}
+html.js .mosaic .me,.mos-el .me{opacity:0;transform:scale(.25);
+  transition:opacity .55s var(--eo),transform .55s var(--eo);
+  transition-delay:calc(var(--i,0)*34ms)}
+html.js .mosaic.revealed .me,html.js .mos-el.revealed .me{opacity:1;transform:none}
+html.no-js .mosaic .me,.mos-el .me{opacity:1}
+body.hiddentab .mosaic .me,.mos-el .me{transition:none}
+/* hero-grade mosaic (first band on home): loopsii hero-el structure */
+.mos-hero .mos-clip{--vcols:11;--cell:clamp(46px,7.6vw,120px);
+  --hide:calc((21 - var(--vcols))/2);
+  overflow:hidden;display:flex;justify-content:center;
+  clip-path:inset(0 calc(var(--hide)*var(--cell)) calc((1 - var(--reveal,0))*66%) calc(var(--hide)*var(--cell)))}
+@media(max-width:1023px){.mos-hero .mos-clip{--vcols:7}}
+.mos-el{--cols:21;display:grid;width:max-content;
+  grid-template-columns:repeat(21,var(--cell));grid-template-rows:repeat(3,var(--cell))}
+.mos-el .me svg{width:100%;height:100%}
+.mos-loop-cir{position:absolute;inset:0;border-radius:50%;background:var(--coral)}
+.mos-loop-svg{position:absolute;inset:0;margin:auto;width:58%;height:58%}
+.mos-loop path.loop{fill:none;stroke:var(--ink);stroke-width:13;stroke-linecap:round;
+  stroke-dasharray:520;stroke-dashoffset:520}
+html.js .revealed .mos-loop path.loop{animation:loopdraw 3.4s var(--eio) infinite}
+@keyframes loopdraw{0%{stroke-dashoffset:520}55%{stroke-dashoffset:0}78%{stroke-dashoffset:0}100%{stroke-dashoffset:520}}
+.mos-xline{position:absolute;left:-100vw;right:-100vw;height:1px;background:var(--hair);
+  transform:scaleX(.001);transition:transform 1.5s var(--eo) .35s}
+.mos-xline.top{top:-1px}.mos-xline.bottom{bottom:0}
+.revealed .mos-xline{transform:none}
+.mos-frame .mlab::before{content:"";display:inline-block;width:8px;height:8px;background:var(--ink);
+  margin-right:.45rem;opacity:0;transition:opacity .6s var(--eo) .7s}
+.revealed .mlab::before{opacity:1}
+/* ============ cycling hero title ============ */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hero2-cycle{display:block}
+.hero_titles{position:relative;display:inline-block;white-space:nowrap;vertical-align:baseline}
+.hero_title{display:inline-block}
+.hero_title:not(:first-child){position:absolute;left:0;top:0;width:max-content;height:100%}
+.hero_title-char{display:inline-block;opacity:0;visibility:hidden;
+  transform:scale(.6) rotate(var(--deg,0deg));
+  font-variation-settings:"wght" 600;
+  transition:transform .95s var(--eo),opacity .8s var(--eo),visibility .95s,font-variation-settings .95s linear;
+  will-change:transform,font-variation-settings}
+.hero_title-char.sp{transition:opacity .8s var(--eo),visibility .95s}
+.hero_title-char.on{opacity:1;visibility:visible;transform:scale(1) rotate(0deg);
+  font-variation-settings:"wght" 800}
+@media(prefers-reduced-motion:reduce){
+  html.js .loader{display:none}
+  html.js body:not(.loaded) main{visibility:visible}
+  html.js .mosaic .me,.mos-el .me{opacity:1;transform:none}
+  .hero_title-char{transition:none;opacity:1;visibility:visible;transform:none}
+}
+
 /* ============ curtain ============ */
 .curtain{position:fixed;inset:0;z-index:150;background:var(--page-field,var(--lemon));color:var(--ink);
   display:none;align-items:flex-end;padding:var(--pad);transform:translateY(0)}
@@ -716,6 +801,19 @@ details[open] .ax::after{transform:rotate(90deg)}
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","name":"DevStarLabs","url":"https://devstarlabs.in/","areaServed":"Tamil Nadu, India","description":"Managed cloud, DevOps, security and AI-automation services on monthly retainers. DPIIT-recognised startup, Udyam/MSME registered, GeM seller, AWS Select partner.","address":{"@type":"PostalAddress","addressRegion":"Tamil Nadu","addressCountry":"IN"}}]</script>
 </head>
 <body data-active-surface="paper" data-field="mint">
+
+<div id="loader" class="loader" data-loader aria-hidden="true">
+  <div class="loader_sheet"></div>
+  <div class="loader_box">
+    <div class="loader_line lx t"></div><div class="loader_line lx b"></div>
+    <div class="loader_line ly l"></div><div class="loader_line ly r"></div>
+    <div class="loader_frame"></div>
+    <span class="loader_dot tl"></span><span class="loader_dot tr"></span>
+    <span class="loader_dot br"></span><span class="loader_dot bl"></span>
+  </div>
+  <div class="loader_brand">DevStarLabs</div>
+  <div class="loader_counter"><span class="loader_counter-value">000</span>&nbsp;%</div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"><span class="bar"></span></div>
 <header class="hdr" id="hdr">
@@ -734,7 +832,7 @@ details[open] .ax::after{transform:rotate(90deg)}
 <div class="cursor" aria-hidden="true"><span class="cl"></span></div>
 <main id="main">
 
-<section class="sec" data-surface="paper">
+<section class="sec grid-lines" data-surface="paper">
   <div class="wrap">
     <span class="mono eyebrow">Managed Cloud &amp; DevOps &mdash; service 01 of 03</span>
     <h1 class="statement" data-split data-d0="80">Your platform, kept running &mdash; and your cloud bill, kept honest.</h1>
@@ -966,7 +1064,7 @@ function initRoll(){
 
 /* ---------- mosaic stagger ---------- */
 function initMosaic(){
-  qsa('.mosaic').forEach(function(m){
+  qsa('.mosaic, .mos-el').forEach(function(m){
     var cells=qsa('i',m);
     cells.forEach(function(c,i){ c.style.setProperty('--i',Math.min(i,60)) });
   });
@@ -1337,8 +1435,145 @@ function initFaq(){
 }
 
 /* ---------- boot ---------- */
+
+/* ---------- loader page (loopsii-style) ---------- */
+function startReveal(instant){
+  document.body.classList.add('loaded');
+  try{document.dispatchEvent(new Event('loader:done'))}catch(e){}
+  var band=qs('.mos-hero'); if(!band) return;
+  band.classList.add('revealed');
+  var clip=qs('.mos-clip',band);
+  if(RM||!clip){ if(clip) clip.style.setProperty('--reveal','1'); return }
+  if(instant){ clip.style.setProperty('--reveal','1'); return }
+  var t0=null,D=1900;
+  function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/D,1);
+    var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    clip.style.setProperty('--reveal',e.toFixed(4));
+    if(p<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+}
+function initLoader(){
+  var L=qs('#loader'); if(!L) return;
+  if(RM){ L.parentNode.removeChild(L); document.body.classList.add('loaded'); startReveal(true); return }
+  var main=qs('main'); if(main) main.style.visibility='hidden';
+  var done=false;
+  function finish(){
+    if(done) return; done=true;
+    document.body.classList.add('loaded');
+    if(main) main.style.visibility='';
+    L.parentNode.removeChild(L);
+    startReveal(false);
+  }
+  window.__forceLoaderDone=function(){ if(!done){ done=true;
+    document.body.classList.add('loaded'); if(main) main.style.visibility='';
+    if(L.parentNode) L.parentNode.removeChild(L); startReveal(true); } };
+  setTimeout(window.__forceLoaderDone,5000);
+  var box=qs('.loader_box',L), frame=qs('.loader_frame',L), brand=qs('.loader_brand',L),
+      cnt=qs('.loader_counter',L), cv=qs('.loader_counter-value',L);
+  var begin=function(){
+    requestAnimationFrame(function(){
+      brand.style.opacity='1'; cnt.style.opacity='1';
+      var t0=null,DL=1000,DC=1900,dl0=null,dc0=null;
+      function padPx(){ var w=window.innerWidth; return Math.max(18,Math.min(46,w*.045)) }
+      function lines(ts){
+        if(dl0===null)dl0=ts; var p=Math.min((ts-dl0)/DL,1); var e=1-Math.pow(1-p,3);
+        var v=(e*padPx()).toFixed(1)+'px';
+        box.style.top=v; box.style.right=v; box.style.bottom=v; box.style.left=v;
+        if(p>=.55) frame.style.opacity='1';
+        if(p<1) requestAnimationFrame(lines);
+      }
+      requestAnimationFrame(lines);
+      function count(ts){
+        if(dc0===null)dc0=ts; var p=Math.min((ts-dc0)/DC,1);
+        var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        cv.textContent=('00'+Math.round(e*100)).slice(-3);
+        if(p<1) requestAnimationFrame(count);
+      }
+      setTimeout(function(){requestAnimationFrame(count)},650);
+      setTimeout(function(){
+        L.classList.add('exit');
+        setTimeout(function(){
+          L.style.clipPath='inset(0 0 100% 0)';
+          setTimeout(finish,950);
+        },260);
+      },2620);
+    });
+  };
+  if(document.fonts&&document.fonts.ready){
+    var raced=false; var go=function(){ if(!raced){raced=true;begin()} };
+    document.fonts.ready.then(go); setTimeout(go,700);
+  } else begin();
+}
+/* ---------- cycling hero title ---------- */
+function initCycle(){
+  var box=qs('.hero_titles'); if(!box) return;
+  var words=qsa('.hero_title',box); if(words.length<2||RM) return;
+  var i=0,started=false;
+  function put(w,on){ qsa('.hero_title-char',w).forEach(function(ch,j){
+    ch.style.transitionDelay=(on?j*38:j*30)+'ms';
+    ch.classList.toggle('on',on); }); }
+  function step(){
+    put(words[i],true);
+    setTimeout(function(){
+      put(words[i],false);
+      setTimeout(function(){ i=(i+1)%words.length; step(); },1150);
+    },2650);
+  }
+  function kick(){ if(started) return; started=true; setTimeout(step,350); }
+  if(document.body.classList.contains('loaded')) kick();
+  else document.addEventListener('loader:done',kick);
+  var obs=new MutationObserver(function(){
+    if(document.body.classList.contains('loaded')) kick(); });
+  obs.observe(document.body,{attributes:true,attributeFilter:['class']});
+}
+/* ---------- morphing mosaic cells ---------- */
+function lerpD(a,b,t){
+  var rb=a.match(/-?\d*\.?\d+/g),i=0;
+  return b.replace(/-?\d*\.?\d+/g,function(m){
+    var vb=parseFloat(m),va=parseFloat(rb[i++]);
+    return (va+(vb-va)*t).toFixed(2); });
+}
+function initMosMorph(){
+  if(RM) return;
+  qsa('.mosaic, .mos-el').forEach(function(m){
+    var cells=qsa('.me[data-pair]',m);
+    m.querySelectorAll('.me').forEach(function(c,j){ c.style.setProperty('--i',Math.min(j,60)) });
+    var heroBand=m.closest('.mos-hero');
+    var show=function(){ m.classList.add('revealed'); var b=m.closest('.mt'); if(b) b.classList.add('revealed'); };
+    if(heroBand||!('IntersectionObserver' in window)){
+      if(document.body.classList.contains('loaded')) show();
+      else document.addEventListener('loader:done',show,{once:true});
+    } else ioOnce(m,show,0);
+    if(!cells.length) return;
+    var live={};
+    function morph(c){
+      var pair=JSON.parse(c.getAttribute('data-pair'));
+      var path=qs('path',c); if(!path) return;
+      var toOther=path.getAttribute('d')===pair.a?pair.b:pair.a;
+      var from=path.getAttribute('d'),t0=null,D=1400;
+      live[c]=true;
+      function st(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/D,1);
+        var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        path.setAttribute('d',lerpD(from,toOther,e));
+        if(p<1) requestAnimationFrame(st); else { live[c]=false;
+          path.setAttribute('d',toOther); } }
+      requestAnimationFrame(st);
+    }
+    function tick(){
+      var pool=cells.filter(function(c){ return !live[c] });
+      for(var n=0;n<5&&pool.length;n++){
+        var c=pool.splice(Math.floor(Math.random()*pool.length),1)[0];
+        morph(c);
+        if(Math.random()<.4){ c.classList.add('pulse');
+          setTimeout(function(el){ return function(){ el.classList.remove('pulse') } }(c),600); }
+      }
+    }
+    setInterval(tick,2100);
+  });
+}
+
 function init(){
-  initReveal(); initSplit(); initRoll(); initMosaic(); initMarquee(); initMenu(); initCurtain(); initProgress();
+  initLoader(); initReveal(); initSplit(); initRoll(); initMosaic(); initMarquee(); initCycle(); initMosMorph(); initMenu(); initCurtain(); initProgress();
   initHeroLine(); initPins(); initVenue(); initTimeline(); initBits(); initFaq();
   initCursor(); initClock(); initForms(); initTabPause(); initScrollNav(); initConfetti();
 }
