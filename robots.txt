@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://devstarlabs.in/sitemap.xml
